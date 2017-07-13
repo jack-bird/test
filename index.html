@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线多人聊天室</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script>
+        $(function(){
+            init();
+            login();
+            ws.onmessage = function(e){
+                var getMsg = e.data;
+                if(/^notice:success$/.test(getMsg)){ //服务器验证通过
+                    alert('ture');
+                }
+                if(/^notice:fail$/.test(getMsg)){ //服务器验证通过
+                    alert('名称重复');
+                }
+            }
+        })
+    </script>
+</head>
+<body>
+    <div id="pop-model">
+        <div class="pre">
+            <div class="top">请输入你的名称</div>
+            <div class="center">
+                你的名称是:<input type="text" placeholder="请输入名称">
+                <a class="logon">登入</a>
+            </div>
+        </div>
+    </div>
+    <div id="title">在线多人聊天室-demo</div>
+    <div id="talk-model">
+        <div class="left">
+        <div class="show">
+            <ul>
+                <li><p class="br">小明</p><p>1111</p></li>
+            </ul>
+        </div>
+        <div class="action">
+            <textarea></textarea>
+        </div>
+        </div>
+        <div class="right">
+            <div class="member">
+            </div>
+            <div class="send">发送</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -19,13 +19,19 @@ function init(){
 
 function login(){
     var EMPTY = 'Name can not be empty'
+    var info = new Array
+    var infos
     $('#pop-model .logon').click(function(){
         var call = $('#pop-model input').val();
         if(call==null || call== ''){
             alert(EMPTY);
             return false;
         }
-        ws.send('login:'+call);
+        info[0] = '0'
+        info[1] = call
+        infos = JSON.stringify(info)
+        alert(infos)
+        ws.send(infos);
     })
 }
 

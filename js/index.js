@@ -5,7 +5,8 @@
 //1 发送
 //2 接收
 function init(){
-    var call = $.cookie('call')
+    var call = $.cookie('call');
+    // var callVal= $.cookie('call').length();
     if(call!=undefined){
         $('#pop-model').hide();
     }else{
@@ -13,7 +14,10 @@ function init(){
     }
     ws = new WebSocket("ws://180.76.242.213:2346")
     ws.onopen = function(){
-        alert('链接成功');
+        var info = new Array
+        info[0] = '0';
+        var infos = JSON.stringify(info)
+        ws.send(infos);
     }
 }
 
@@ -22,15 +26,14 @@ function login(){
     var info = new Array
     var infos
     $('#pop-model .logon').click(function(){
-        var call = $('#pop-model input').val();
+       var call = $('#pop-model input').val();
         if(call==null || call== ''){
             alert(EMPTY);
             return false;
         }
-        info[0] = '0'
+        info[0] = '1'
         info[1] = call
         infos = JSON.stringify(info)
-        alert(infos)
         ws.send(infos);
     })
 }

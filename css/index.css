@@ -1,6 +1,9 @@
 body{
     background:#000;
 }
+ul li{
+    list-style:none;
+}
 .br{
     color:#73ba2d;
     font-size:16px;
@@ -129,6 +132,10 @@ body{
     margin:20px 0px 10px 20px;
     border-top-right-radius:15px;
     background:rgba(999,999,999, 0.5);
+}
+#talk-model .member .title{
+    padding-top:20px;
+    text-align:center;
 }
 #talk-model .send{
     width:195px;

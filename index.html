@@ -9,18 +9,41 @@
     <script type="text/javascript" src="js/index.js"></script>
     <script>
         $(function(){
+            var call
             init();
             login();
             ws.onmessage = function(e){
-                var getMsg = e.data;
+                var getMsg = decodeUnicode(e.data);
+                console.log(getMsg)
                 if(/^notice:success$/.test(getMsg)){ //服务器验证通过
-                    alert('ture');
+                    call = $('#pop-model input').val();
+                    $.cookie('call', call);
+                    $('#pop-model').hide();
                 }
                 if(/^notice:fail$/.test(getMsg)){ //服务器验证通过
-                    alert('名称重复');
+                    alert('名称重复')
+                }
+                if(/^init:user/.test(getMsg)){// 收到初始化用户
+                    var user = getMsg.substring(9)
+                    user = JSON.parse(user)
+                    $.each(user,function(k,v){
+                        $('.member ul').append("<li>"+v+"</li>")
+                    })
+                }
+                if(/^notice:welcome/.test(getMsg)){
+                    var user = getMsg.substring(14)
+                    console.log("欢迎"+user)
                 }
             }
         })
+        /**
+         * 获取的中文都是已unicode的格式传输过来的
+         * 输出钱必须转义
+         * */
+        function decodeUnicode(str) {
+            str = str.replace(/\\/g, "%");
+            return unescape(str);
+        }
     </script>
 </head>
 <body>
@@ -47,6 +70,10 @@
         </div>
         <div class="right">
             <div class="member">
+                    <div class="title">当前用户</div>
+                <ul>
+
+                </ul>
             </div>
             <div class="send">发送</div>
         </div>

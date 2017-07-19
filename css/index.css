@@ -87,6 +87,11 @@ ul li{
     list-style-type:none;
     overflow:hidden;
 }
+#talk-model .show ul .welcome{
+    text-align:center;
+    font-size:14px;
+    color:#959595;
+}
 #talk-model .show ul li i:first-child{
     margin-right:10px;
 }

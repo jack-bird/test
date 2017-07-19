@@ -12,9 +12,17 @@
             var call
             init();
             login();
+            $('.right .send').click(function(){
+                send()
+            })
+            $('.action textarea').bind('keypress',function(event){
+                if(event.keyCode == 13)
+                {
+                    send()
+                }
+            })
             ws.onmessage = function(e){
                 var getMsg = decodeUnicode(e.data);
-                console.log(getMsg)
                 if(/^notice:success$/.test(getMsg)){ //服务器验证通过
                     call = $('#pop-model input').val();
                     $.cookie('call', call);
@@ -32,7 +40,13 @@
                 }
                 if(/^notice:welcome/.test(getMsg)){
                     var user = getMsg.substring(14)
-                    console.log("欢迎"+user)
+                    $('.show ul').append("<li class='welcome'>欢迎"+user+"</li>")
+                    $('.member ul').append("<li>"+user+"</li>")
+                }
+                if(/^notice:send/.test(getMsg)){
+                    var con = getMsg.substring(11)
+                    $('.show ul').append(con)
+                    $('.action textarea').val('')
                 }
             }
         })
@@ -61,6 +75,7 @@
         <div class="left">
         <div class="show">
             <ul>
+                <li class='welcome'>admin登入了聊天室</li>
                 <li><p class="br">小明</p><p>1111</p></li>
             </ul>
         </div>

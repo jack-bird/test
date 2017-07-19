@@ -38,4 +38,16 @@ function login(){
     })
 }
 
+function send(){
+    var EMPTY = 'Send content cannot be empty'
+    var info = new Array
+    var infos
+    var call = $.cookie('call')
+    var content = $('.action textarea').val()
+    info[0] = '2'
+    info[1] = call
+    info[2] = content
+    infos = JSON.stringify(info)
+    ws.send(infos);
+}
 
